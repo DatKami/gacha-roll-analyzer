@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Line } from 'react-chartjs-2';
 import ProbabilityDataTransform from './ProbabilityDataTransform';
+import { TextField, Checkbox, FormControlLabel } from '@material-ui/core';
 
-function App() {
-  const data = {
+function chartDataTransform(probability, pityLimit) {
+  return {
+    data: {
       datasets: [{
-        data: ProbabilityDataTransform({probability: .03})
+        steppedLine: true,
+        pointRadius: 0,
+        pointHitRadius: 2,
+        data: ProbabilityDataTransform({probability, pityLimit: pityLimit ? 300 : undefined})
       }]
     },
-    options = {
+    options: {
       scales: {
         xAxes: [{
           type: 'linear',
           position: 'bottom'
         }]
       }
-    };
+    }
+  }
+}
+
+function App() {
+  const [probability, setProbability] = useState(.7)
+  const [pityLimit, setPityLimit] = useState(false)
 
   return (
     <div className="App">
@@ -34,13 +45,19 @@ function App() {
         >
           Learn React
         </a>
+        <TextField id="probability" label="Probability (%)" value={probability} onChange={e => setProbability(e.target.value)}/>
+        <FormControlLabel
+          control={
+            <Checkbox id="pityLimit"  checked={pityLimit} onChange={e => setPityLimit(e.target.checked) } color="primary"/>
+          }
+          label="Granblue: Will spark target"
+        />
         <Line 
-          data={data} 
-          options={options}
+          {...chartDataTransform(probability / 100, pityLimit)}
         />
       </header>
     </div>
-  );
+  )
 }
 
 export default App;

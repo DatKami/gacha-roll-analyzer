@@ -16,7 +16,7 @@ function ProbabilityDataTransform(properties) {
         remainingProbability = remainingProbability * probabilityMultiplier;
         data.push({
             x: i,
-            y: i === pityLimit ? 1 : 1 - remainingProbability
+            y: (i === pityLimit ? 1 : 1 - remainingProbability) * 100
         });
     }
     return data;

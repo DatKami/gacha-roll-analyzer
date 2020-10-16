@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "33ad748748704cc2f5f2f38ec3ed940f",
+    "revision": "ceec8c47bed1949f811046d41e9c28be",
     "url": "/gacha-roll-analyzer/index.html"
   },
   {
-    "revision": "deb726dc0e458f07f8f1",
+    "revision": "0178a81165b59c88c1f2",
     "url": "/gacha-roll-analyzer/static/css/main.9bf90e49.chunk.css"
   },
   {
-    "revision": "ee16a1c95a33ebdd05c5",
-    "url": "/gacha-roll-analyzer/static/js/2.b007fafb.chunk.js"
+    "revision": "6d926b5582307a7e0e66",
+    "url": "/gacha-roll-analyzer/static/js/2.4838af2e.chunk.js"
   },
   {
     "revision": "c46ade285a7bd9e73d4de71c9509bd70",
-    "url": "/gacha-roll-analyzer/static/js/2.b007fafb.chunk.js.LICENSE.txt"
+    "url": "/gacha-roll-analyzer/static/js/2.4838af2e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "deb726dc0e458f07f8f1",
-    "url": "/gacha-roll-analyzer/static/js/main.daf4a723.chunk.js"
+    "revision": "0178a81165b59c88c1f2",
+    "url": "/gacha-roll-analyzer/static/js/main.5e095696.chunk.js"
   },
   {
     "revision": "4ba140413094aff6b4ef",

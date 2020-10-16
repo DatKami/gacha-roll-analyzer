@@ -22,71 +22,91 @@ const MODES = {
         }
       },
       useStyles = makeStyles((theme) => ({
-        formControl: {
-          margin: theme.spacing(1),
-          minWidth: 120,
-        },
-        formControlPresetProbabilities: {
-          margin: theme.spacing(1),
-          minWidth: 240,
-        },
-        selectEmpty: {
-          marginTop: theme.spacing(2),
-        },
+          formControl: {
+              margin: theme.spacing(1),
+              minWidth: 120,
+          },
+          formControlPresetProbabilities: {
+              margin: theme.spacing(1),
+              minWidth: 240,
+          },
+          selectEmpty: {
+              marginTop: theme.spacing(2),
+          },
+          graphBox: {
+              width: '90vw',
+              height: '100vh'
+          }
       })),
       DEFAULT_PROBABILITIES = {
           GRANBLUE: [
               {
-                  name: '0.225% - 3 SSRs in rate up',
-                  value: 0.225
+                  name: '0.225% - 1 of 3 SSRs in rate up',
+                  value: 0.225,
+                  chartTitle: 'Cumulative chance to pull a focused SSR at 0.225% rate'
               },
               {
                   name: '0.45% - 2 SSRs in rate up',
-                  value: 0.45
+                  value: 0.45,
+                  chartTitle: 'Cumulative chance to pull a focused SSR at 0.45% rate'
               },
               {
                   name: '0.7% - 1 SSR in rate up',
-                  value: 0.7
+                  value: 0.7,
+                  chartTitle: 'Cumulative chance to pull a focused SSR at 0.7% rate'
               },
               {
                   name: '3% - Any SSR',
-                  value: 3
+                  value: 3,
+                  chartTitle: 'Cumulative chance to pull any SSR at 3% rate'
               },
               {
                   name: 'Custom',
-                  value: undefined
+                  value: undefined,
+                  chartTitle: 'Cumulative chance at a custom rate'
               }
           ],
           FGO: [
               {
                   name: '0.7% - 5* Servant Rate Up',
-                  value: 0.7
+                  value: 0.7,
+                  chartTitle: 'Cumulative chance to pull a focused 5* servant at 0.7% rate'
               },
               {
                   name: '1% - Any 5* Servant',
-                  value: 1
+                  value: 1,
+                  chartTitle: 'Cumulative chance to pull any 5* servant at 1% rate'
               },
               {
                   name: 'Custom',
-                  value: undefined
+                  value: undefined,
+                  chartTitle: 'Cumulative chance at a custom rate'
               }
           ],
           GENSHIN: [
               {
                   name: '0.6% - 5* Any',
-                  value: 0.6
+                  value: 0.6,
+                  chartTitle: {
+                      false: 'Cumulative chance to pull any 5* character from limited wish',
+                      true: 'Cumulative chance to pull the rate up 5* character from limited wish'
+                  }
               },
               {
                   name: 'Custom',
-                  value: undefined
+                  value: undefined,
+                  chartTitle: {
+                    false: 'Cumulative chance at a custom rate',
+                    true: 'Cumulative chance to pull the rate up 5* character at a custom rate'
+                }
               }
           ]
       }
 
-function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, mode) {
+function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, mode, chartTitle) {
   let dataTransform = DATA_TRANSFORMS[mode],
       properties = {probability}
-      
+
   if (mode === MODES.GENSHIN) {
       dataTransform = dataTransform[isGenshinLimitedCharacter]
   }
@@ -108,8 +128,8 @@ function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, m
     options: {
       title: {
         display: true,
-        text: 'Cumulative chance to pull any 5* character from limited wish',
-        fontSize: 30
+        text: chartTitle,
+        fontSize: 26
       },
       legend: {
         display: false
@@ -121,6 +141,10 @@ function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, m
           scaleLabel: {
             display: true,
             labelString: 'Number of pulls',
+          },
+          ticks: {
+            beginAtZero: true,
+            suggestedMax: 1000
           }
         }],
         yAxes: [{
@@ -140,20 +164,34 @@ function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, m
 
 function App() {
   const classes = useStyles();
-  const [mode, setMode] = useState(MODES.GRANBLUE)
+  const [mode, setMode] = useState(MODES.GENSHIN)
   const [probability, setProbability] = useState(DEFAULT_PROBABILITIES[mode][0].value)
   const [presetProbabilityIndex, setPresetProbabilityIndex] = useState(0)
   const [probabilityInputEnabled, setProbabilityInputEnabled] = useState(false)
   const [pityLimit, setPityLimit] = useState(false)
-  const [isGenshinLimitedCharacter, setIsGenshinLimitedCharacter] = useState(false)
+  const [isGenshinLimitedCharacter, setIsGenshinLimitedCharacter] = useState(true)
+  const getChartTitle = (mode, index, isGenshinLimitedCharacter) => {
+      let chartTitle = DEFAULT_PROBABILITIES[mode][index].chartTitle
+
+      if (mode === MODES.GENSHIN) {
+          chartTitle = chartTitle[isGenshinLimitedCharacter]
+      }
+      
+      return chartTitle
+  }
+  const [chartTitle, setChartTitle] = useState(getChartTitle(mode, presetProbabilityIndex, isGenshinLimitedCharacter))
   const setToDefaultProbability = (mode, index) => {
-      const probability = DEFAULT_PROBABILITIES[mode][index].value
+      const presetProbability = DEFAULT_PROBABILITIES[mode][index],
+            probability = presetProbability.value
+
       if (probability === undefined) {
           setProbabilityInputEnabled(true)
       } else {
           setProbability(probability)
           setProbabilityInputEnabled(false)
       }
+
+      setChartTitle(getChartTitle(mode, index, isGenshinLimitedCharacter))
   }
   const preSetProbability = index => {
       setPresetProbabilityIndex(index)
@@ -176,6 +214,13 @@ function App() {
           setPresetProbabilityIndex(index)
           setToDefaultProbability(mode, index) // custom index
       }
+  }
+  const preSetIsGenshinLimitedCharacter = isGenshinLimitedCharacter => {
+      setIsGenshinLimitedCharacter(isGenshinLimitedCharacter)
+      let chartTitleObject = DEFAULT_PROBABILITIES[mode][presetProbabilityIndex].chartTitle,
+          chartTitle = chartTitleObject[isGenshinLimitedCharacter]
+      
+      setChartTitle(chartTitle)
   }
 
   return (
@@ -220,16 +265,19 @@ function App() {
             {mode === MODES.GENSHIN &&
                 <FormControlLabel className={classes.formControl}
                     control={
-                        <Checkbox id="isGenshinLimitedCharacter" checked={isGenshinLimitedCharacter} onChange={e => setIsGenshinLimitedCharacter(e.target.checked) } color="primary"/>
+                        <Checkbox id="isGenshinLimitedCharacter" checked={isGenshinLimitedCharacter} onChange={e => preSetIsGenshinLimitedCharacter(e.target.checked) } color="primary"/>
                     }
                     label="Aiming for Limited 5* Character"
                 />
             }
 
         </FormGroup>
-        <Line 
-          {...chartDataTransform(probability / 100, pityLimit, isGenshinLimitedCharacter, mode)}
-        />
+        <div className={classes.graphBox}>
+            <Line 
+                {...chartDataTransform(probability / 100, pityLimit, isGenshinLimitedCharacter, mode, chartTitle)}
+            />
+        </div>
+
       </header>
     </div>
   )

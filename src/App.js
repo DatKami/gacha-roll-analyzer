@@ -168,7 +168,7 @@ function App() {
   const [probability, setProbability] = useState(DEFAULT_PROBABILITIES[mode][0].value)
   const [presetProbabilityIndex, setPresetProbabilityIndex] = useState(0)
   const [probabilityInputEnabled, setProbabilityInputEnabled] = useState(false)
-  const [pityLimit, setPityLimit] = useState(false)
+  const [pityLimit, setPityLimit] = useState(true)
   const [isGenshinLimitedCharacter, setIsGenshinLimitedCharacter] = useState(true)
   const getChartTitle = (mode, index, isGenshinLimitedCharacter) => {
       let chartTitle = DEFAULT_PROBABILITIES[mode][index].chartTitle
@@ -200,8 +200,11 @@ function App() {
   const preSetMode = mode => {
       setMode(mode)
       let index = 0
-      if (mode !== MODES.GRANBLUE) {
+      if (mode === MODES.FGO) {
           setPityLimit(false)
+      }
+      if (mode === MODES.GRANBLUE) {
+          setPityLimit(true)
       }
       if (mode !== MODES.GENSHIN) {
           setIsGenshinLimitedCharacter(false)

@@ -1,23 +1,22 @@
 {
   "files": {
     "main.css": "/gacha-roll-analyzer/static/css/main.9bf90e49.chunk.css",
-    "main.js": "/gacha-roll-analyzer/static/js/main.ad896c9f.chunk.js",
-    "main.js.map": "/gacha-roll-analyzer/static/js/main.ad896c9f.chunk.js.map",
+    "main.js": "/gacha-roll-analyzer/static/js/main.daf4a723.chunk.js",
+    "main.js.map": "/gacha-roll-analyzer/static/js/main.daf4a723.chunk.js.map",
     "runtime-main.js": "/gacha-roll-analyzer/static/js/runtime-main.649638d4.js",
     "runtime-main.js.map": "/gacha-roll-analyzer/static/js/runtime-main.649638d4.js.map",
-    "static/js/2.8d22c1d7.chunk.js": "/gacha-roll-analyzer/static/js/2.8d22c1d7.chunk.js",
-    "static/js/2.8d22c1d7.chunk.js.map": "/gacha-roll-analyzer/static/js/2.8d22c1d7.chunk.js.map",
+    "static/js/2.b007fafb.chunk.js": "/gacha-roll-analyzer/static/js/2.b007fafb.chunk.js",
+    "static/js/2.b007fafb.chunk.js.map": "/gacha-roll-analyzer/static/js/2.b007fafb.chunk.js.map",
     "index.html": "/gacha-roll-analyzer/index.html",
-    "precache-manifest.3703dbe7ecaaec4f9379472f46fc45b0.js": "/gacha-roll-analyzer/precache-manifest.3703dbe7ecaaec4f9379472f46fc45b0.js",
+    "precache-manifest.d0d995399ee88f69faa69a9e406a8fff.js": "/gacha-roll-analyzer/precache-manifest.d0d995399ee88f69faa69a9e406a8fff.js",
     "service-worker.js": "/gacha-roll-analyzer/service-worker.js",
     "static/css/main.9bf90e49.chunk.css.map": "/gacha-roll-analyzer/static/css/main.9bf90e49.chunk.css.map",
-    "static/js/2.8d22c1d7.chunk.js.LICENSE.txt": "/gacha-roll-analyzer/static/js/2.8d22c1d7.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/gacha-roll-analyzer/static/media/logo.ee7cd8ed.svg"
+    "static/js/2.b007fafb.chunk.js.LICENSE.txt": "/gacha-roll-analyzer/static/js/2.b007fafb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.649638d4.js",
-    "static/js/2.8d22c1d7.chunk.js",
+    "static/js/2.b007fafb.chunk.js",
     "static/css/main.9bf90e49.chunk.css",
-    "static/js/main.ad896c9f.chunk.js"
+    "static/js/main.daf4a723.chunk.js"
   ]
 }

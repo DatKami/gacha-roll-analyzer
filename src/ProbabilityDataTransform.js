@@ -1,9 +1,10 @@
 function ProbabilityDataTransform(properties) {
     properties = properties || {};
-    const {probability, pityLimit} = properties;
+    let {probability, pityLimit} = properties;
     let {limit = 1000} = properties;
     if (!probability) { 
-        throw new Error('Parameter probability is required');
+        // throw new Error('Parameter probability is required');
+        probability = 0;
     }
     let data = [], 
         i, 

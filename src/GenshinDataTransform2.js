@@ -1,4 +1,4 @@
-function routine() {
+function routine(probability) {
 	let runs = 0,
 		currentPityRuns = 0,
 		pities = 0;
@@ -6,19 +6,27 @@ function routine() {
 	while (pities < 1) {
 		runs += 1;
 		currentPityRuns += 1;
-		if(Math.random() < .006 || currentPityRuns === 90) {
+		if(Math.random() < probability || currentPityRuns === 90) {
 			return runs; 
 		}
 	}
 	return runs;
 }
 
-function GenshinDataTransform() {
+function GenshinDataTransform(properties) {
+    properties = properties || {};
+    let {probability} = properties;
+
     let buckets = [],
-	cumulativeBuckets = [],
-	sumRuns = 0,
-    numRuns = 100000,
-    data = [];
+        cumulativeBuckets = [],
+        sumRuns = 0,
+        numRuns = 100000,
+        data = [];
+
+    if (!probability) { 
+        // throw new Error('Parameter probability is required');
+        probability = 0;
+    }
 
     // make empty buckets
     for (let j = 0; j < 91; ++j) {
@@ -28,7 +36,7 @@ function GenshinDataTransform() {
 
     // count runs
     for (let i = 0; i < numRuns; ++i) {
-        let run = routine();
+        let run = routine(probability);
         buckets[run] += 1;
         
         sumRuns += run;

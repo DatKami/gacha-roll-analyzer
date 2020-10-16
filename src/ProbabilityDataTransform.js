@@ -12,12 +12,11 @@ function ProbabilityDataTransform(properties) {
 
     const probabilityMultiplier = 1 - probability;
 
-    pityLimit && (limit = pityLimit);
     for (i = 1; i <= limit; ++i) {
         remainingProbability = remainingProbability * probabilityMultiplier;
         data.push({
             x: i,
-            y: (i === pityLimit ? 1 : 1 - remainingProbability) * 100
+            y: (i >= pityLimit ? 1 : 1 - remainingProbability) * 100
         });
     }
     return data;

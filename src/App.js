@@ -34,8 +34,7 @@ const MODES = {
               marginTop: theme.spacing(2),
           },
           graphBox: {
-              width: '90vw',
-              height: '100vh'
+              width: '80vw',
           }
       })),
       DEFAULT_PROBABILITIES = {
@@ -103,9 +102,9 @@ const MODES = {
           ]
       }
 
-function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, mode, chartTitle) {
+function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, mode, chartTitle, maxRolls) {
   let dataTransform = DATA_TRANSFORMS[mode],
-      properties = {probability}
+      properties = {probability, limit: maxRolls}
 
   if (mode === MODES.GENSHIN) {
       dataTransform = dataTransform[isGenshinLimitedCharacter]
@@ -144,7 +143,7 @@ function chartDataTransform(probability, pityLimit, isGenshinLimitedCharacter, m
           },
           ticks: {
             beginAtZero: true,
-            suggestedMax: 1000
+            suggestedMax: maxRolls
           }
         }],
         yAxes: [{
@@ -166,6 +165,7 @@ function App() {
   const classes = useStyles();
   const [mode, setMode] = useState(MODES.GENSHIN)
   const [probability, setProbability] = useState(DEFAULT_PROBABILITIES[mode][0].value)
+  const [maxRolls, setMaxRolls] = useState(300)
   const [presetProbabilityIndex, setPresetProbabilityIndex] = useState(0)
   const [probabilityInputEnabled, setProbabilityInputEnabled] = useState(false)
   const [pityLimit, setPityLimit] = useState(true)
@@ -225,11 +225,18 @@ function App() {
       
       setChartTitle(chartTitle)
   }
+  const preSetMaxRolls = maxRolls => {
+      if (maxRolls > 1000) {
+          maxRolls = 1000
+      }
+
+      setMaxRolls(maxRolls)
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <FormGroup row={true} className={classes.formControl}>
+        <FormGroup row={true}>
             <FormControl className={classes.formControl}>
                 <InputLabel id="modesInputLabel">Game</InputLabel>
                 <Select
@@ -257,6 +264,9 @@ function App() {
                 </Select>
             </FormControl>
             <TextField disabled={!probabilityInputEnabled} className={classes.formControl} id="probability" label="Probability (%)" value={probability} onChange={e => setProbability(e.target.value)}/>
+        </FormGroup>
+        <FormGroup row={true}>
+            <TextField className={classes.formControl} id="maxRolls" label="Max rolls (max 1000)" value={maxRolls} onChange={e => preSetMaxRolls(e.target.value)}/>
             {mode === MODES.GRANBLUE &&
                 <FormControlLabel className={classes.formControl}
                     control={
@@ -277,7 +287,7 @@ function App() {
         </FormGroup>
         <div className={classes.graphBox}>
             <Line 
-                {...chartDataTransform(probability / 100, pityLimit, isGenshinLimitedCharacter, mode, chartTitle)}
+                {...chartDataTransform(probability / 100, pityLimit, isGenshinLimitedCharacter, mode, chartTitle, maxRolls)}
             />
         </div>
 

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gacha-roll-analyzer/precache-manifest.5f4984476fffd132ba0598b90f7322bf.js"
+  "/gacha-roll-analyzer/precache-manifest.ee022486e450cd589cc7d3ff12b2a73d.js"
 );
 
 self.addEventListener('message', (event) => {

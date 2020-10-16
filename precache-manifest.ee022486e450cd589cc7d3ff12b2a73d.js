@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ceec8c47bed1949f811046d41e9c28be",
+    "revision": "710ed2c483209fc33e4bc7db9838827c",
     "url": "/gacha-roll-analyzer/index.html"
   },
   {
-    "revision": "0178a81165b59c88c1f2",
+    "revision": "0eed3a10c05e26bb954b",
     "url": "/gacha-roll-analyzer/static/css/main.9bf90e49.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gacha-roll-analyzer/static/js/2.4838af2e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0178a81165b59c88c1f2",
-    "url": "/gacha-roll-analyzer/static/js/main.5e095696.chunk.js"
+    "revision": "0eed3a10c05e26bb954b",
+    "url": "/gacha-roll-analyzer/static/js/main.04730e9a.chunk.js"
   },
   {
     "revision": "4ba140413094aff6b4ef",

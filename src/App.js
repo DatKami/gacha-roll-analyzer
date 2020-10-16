@@ -60,6 +60,11 @@ const MODES = {
                   chartTitle: 'Cumulative chance to pull any SSR at 3% rate'
               },
               {
+                  name: '6% - Any SSR (Flash Gala)',
+                  value: 6,
+                  chartTitle: 'Cumulative chance to pull any SSR at 6% rate'
+              },
+              {
                   name: 'Custom',
                   value: undefined,
                   chartTitle: 'Cumulative chance at a custom rate'
